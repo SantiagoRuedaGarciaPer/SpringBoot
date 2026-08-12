@@ -1,4 +1,4 @@
-package com.explicacionD1.projectD1.dto.request;
+package com.explicacionD1.projectD1.DTO.Request;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;

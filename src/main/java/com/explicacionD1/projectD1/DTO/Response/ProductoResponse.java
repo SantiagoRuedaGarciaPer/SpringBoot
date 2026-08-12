@@ -1,4 +1,4 @@
-package com.explicacionD1.projectD1.dto.response;
+package com.explicacionD1.projectD1.DTO.Response;
 
 public record ProductoResponse(
         Long id,
