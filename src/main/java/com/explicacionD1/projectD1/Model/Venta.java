@@ -10,7 +10,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "venta")
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Venta {
