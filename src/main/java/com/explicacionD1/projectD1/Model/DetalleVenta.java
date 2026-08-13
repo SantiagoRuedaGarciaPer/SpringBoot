@@ -14,6 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DetalleVenta {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "venta_fk", nullable = false)

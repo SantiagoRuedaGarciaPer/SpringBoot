@@ -14,8 +14,8 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
     List<Venta> findByFecha(Date fecha);
 
     @Query("""
-            Select v from venta v
-            where MONTH(v.fecha) = :mes && YEAR(v.fecha) = :anio;
+            Select v from Venta v
+            where MONTH(v.fecha) = :mes AND YEAR(v.fecha) = :anio
             """)
     List<Venta> findByMesYAnio(
             @Param("mes") int mes,

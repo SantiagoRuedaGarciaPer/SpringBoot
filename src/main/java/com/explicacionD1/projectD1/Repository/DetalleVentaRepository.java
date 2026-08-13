@@ -17,5 +17,5 @@ public interface DetalleVentaRepository extends JpaRepository<DetalleVenta, Long
 
     List<DetalleVenta> findBySubtotalLessThanEqual(Double monto);
 
-    List<DetalleVenta> existByCantidadLessThanEqual(Double cantidad);
+    List<DetalleVenta> findByCantidadLessThanEqual(Double cantidad);
 }
