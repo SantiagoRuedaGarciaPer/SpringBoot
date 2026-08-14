@@ -89,7 +89,7 @@ public class DetalleVentaImpl implements DetalleVentaService {
     }
 
     @Override
-    public List<DetalleVentaResponse> buscarCatantidadMenorQue(Double cantidad) {
+    public List<DetalleVentaResponse> buscarCatantidadMenorQue(Long cantidad) {
         return detalleVentaRepository.findByCantidadLessThanEqual(cantidad).stream().map(
                 p-> detalleVentaMapper.entityToDto(p,
                         ventaMapper.entityToDto(p.getVenta()),

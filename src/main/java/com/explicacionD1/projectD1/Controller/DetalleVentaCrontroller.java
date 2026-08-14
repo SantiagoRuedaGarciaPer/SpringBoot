@@ -44,6 +44,11 @@ public class DetalleVentaCrontroller {
         return ResponseEntity.ok(detalleVentaService.buscarPorIdVenta(id));
     }
 
+    @GetMapping("/venta")
+    public ResponseEntity<List<DetalleVentaResponse>> listarPorCantidadMenorQue(@RequestParam Long cantidad){
+        return ResponseEntity.ok((detalleVentaService.buscarCatantidadMenorQue(cantidad)));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<DetalleVentaResponse> actualizar( @PathVariable Long id, @RequestBody DetalleVentaRequest dto){
         return ResponseEntity.ok(detalleVentaService.actualizar(id, dto));

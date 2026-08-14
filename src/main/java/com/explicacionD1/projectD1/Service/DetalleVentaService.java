@@ -16,5 +16,5 @@ public interface DetalleVentaService {
     List<DetalleVentaResponse> buscarPorIdVenta(Long id);
     List<DetalleVentaResponse> buscarPorIdProducto(Long id);
 
-    List<DetalleVentaResponse> buscarCatantidadMenorQue(Double cantidad);
+    List<DetalleVentaResponse> buscarCatantidadMenorQue(Long cantidad);
 }
