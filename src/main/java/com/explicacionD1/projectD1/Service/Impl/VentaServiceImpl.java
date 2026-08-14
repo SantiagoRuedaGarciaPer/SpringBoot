@@ -33,6 +33,7 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public VentaResponse buscar(Long id) {
         Venta venta = ventaRepository.findById(id).orElseThrow(()->new RuntimeException("no se encuentra la venta"));
+        return ventaMapper.entityToDto(venta);
 
     }
 
@@ -50,26 +51,35 @@ public class VentaServiceImpl implements VentaService {
 
     @Override
     public List<VentaResponse> buscarTotalMayorQue(Double monto) {
-        return null;
+        List<Venta> ventas = ventaRepository.findByTotalGreaterThanEqual(monto);
+        return ventas.stream().map(ventaMapper::entityToDto).toList();
     }
+
 
     @Override
     public List<VentaResponse> buscarTotalMenorQue(Double monto) {
-        return null;
+
+        List<Venta> ventas = ventaRepository.findByTotalLessThanEqual(monto);
+        return ventas.stream().map(ventaMapper::entityToDto).toList();
     }
 
     @Override
     public List<VentaResponse> buscarFechaEntre(Date fecha1, Date fecha2) {
-        return null;
+
+        List<Venta> ventas = ventaRepository.findByFechaBetween(fecha1, fecha2);
+        return ventas.stream().map(ventaMapper::entityToDto).toList();
     }
 
     @Override
     public List<VentaResponse> buscarFecha(Date fecha) {
-        return null;
+        List<Venta> ventas = ventaRepository.findByFecha(fecha);
+        return ventas.stream().map(ventaMapper::entityToDto).toList();
+
     }
 
     @Override
     public List<VentaResponse> buscarFechaMesAnio(int mes, int anio) {
-        return null;
+        List<Venta> ventas = ventaRepository.findByMesYAnio(mes, anio);
+        return ventas.stream().map(ventaMapper::entityToDto).toList();
     }
 }
