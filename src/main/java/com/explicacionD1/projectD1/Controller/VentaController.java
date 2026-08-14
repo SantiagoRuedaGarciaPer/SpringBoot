@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/detalleVenta")
+@RequestMapping("/api/Venta")
 @RequiredArgsConstructor
 public class VentaController {
     private final VentaService ventaService;
@@ -45,7 +45,7 @@ public class VentaController {
         return ResponseEntity.ok(ventaService.buscarTotalMenorQue(monto));
     }
 
-    @GetMapping("/fecha")
+    @GetMapping("/fecha/entre")
     public ResponseEntity<List<VentaResponse>> obtenerFechaEntre(@RequestParam Date fecha1, @RequestParam Date fecha2){
         return ResponseEntity.ok(ventaService.buscarFechaEntre(fecha1, fecha2));
     }

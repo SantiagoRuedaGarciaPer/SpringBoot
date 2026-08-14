@@ -67,16 +67,17 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
+    public List<ProductoResponse> buscarPrecioVentaEntre(Double monto1, Double monto2) {
+        List<Producto> productos = productoRepository.findByPrecioVentaBetween(monto1, monto2);
+        return productos.stream().map(productoMapper::entityToDto).toList();
+    }
+
+    @Override
     public List<ProductoResponse> buscarPrecioCompraMayor(Double monto) {
         List<Producto> productos = productoRepository.findByPrecioCompraGreaterThanEqual(monto);
         return productos.stream().map(productoMapper::entityToDto).toList();
     }
 
-    @Override
-    public List<ProductoResponse> buscarPrecioVentaEntre(Double monto1, Double monto2) {
-        List<Producto> productos = productoRepository.findByPrecioVentaBetween(monto1, monto2);
-        return productos.stream().map(productoMapper::entityToDto).toList();
-    }
 
     @Override
     public List<ProductoResponse> buscarPrecioCompraMenor(Double monto) {
