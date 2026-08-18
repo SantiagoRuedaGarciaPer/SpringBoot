@@ -162,11 +162,11 @@ public class ProductoController {
 
 
     @Operation(summary = "Actualiza un producto")
-    @Parameter(description = "id, Json actualizado del producto")
+    @Parameter(name ="id", description = "id del producto")
     @PutMapping("/{id}")
     @ApiResponses(
             value = {
-                    @ApiResponse(responseCode = "200", description = "Productos listados correctamente"),
+                    @ApiResponse(responseCode = "200", description = "Producto actualizado correctamente"),
                     @ApiResponse(responseCode = "500", description = "Datos correctos, Valor de texto muy largo (50 maximo) / Id inexistente"),
                     @ApiResponse(responseCode = "400", description = "Datos erroneos"),
                     @ApiResponse(responseCode = "404", description = "No se ingreso el id")
