@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Venta")
+@RequestMapping("/api/venta")
 @RequiredArgsConstructor
 public class VentaController {
     private final VentaService ventaService;
