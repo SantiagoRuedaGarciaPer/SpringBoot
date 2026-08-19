@@ -10,10 +10,12 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -22,6 +24,7 @@ import java.util.List;
 @Tag(name = "Ventas", description = "Operaciones relacionadas a las ventas")
 @RestController
 @RequestMapping("/api/venta")
+@Validated
 @RequiredArgsConstructor
 public class VentaController {
     private final VentaService ventaService;
@@ -34,7 +37,7 @@ public class VentaController {
             }
     )
     @PostMapping
-    public ResponseEntity<VentaResponse> crear(@RequestBody VentaRequest dto) {
+    public ResponseEntity<VentaResponse> crear(@Valid @RequestBody VentaRequest dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ventaService.guardar(dto));
     }
 
@@ -146,7 +149,7 @@ public class VentaController {
             }
     )
     @PutMapping("/{id}")
-    public ResponseEntity<VentaResponse> actualizar(@PathVariable Long id, @RequestBody VentaRequest dto) {
+    public ResponseEntity<VentaResponse> actualizar(@PathVariable Long id,@Valid @RequestBody VentaRequest dto) {
         return ResponseEntity.ok(ventaService.actualizar(id, dto));
     }
 

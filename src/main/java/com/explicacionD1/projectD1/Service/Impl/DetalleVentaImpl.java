@@ -13,6 +13,7 @@ import com.explicacionD1.projectD1.Repository.ProductoRepository;
 import com.explicacionD1.projectD1.Repository.VentaRepository;
 import com.explicacionD1.projectD1.Service.DetalleVentaService;
 import com.explicacionD1.projectD1.Service.ProductoService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +31,15 @@ public class DetalleVentaImpl implements DetalleVentaService {
 
     @Override
     public DetalleVentaResponse crear(DetalleVentaRequest dto) {
-        Producto producto = productoRepository.findById(dto.producto_id()).orElseThrow(()-> new RuntimeException("no existe dicho producto"));
-        Venta venta =ventaRepository.findById(dto.venta_id()).orElseThrow(()-> new RuntimeException("No existe la venta a relacionar"));
+        Producto producto = productoRepository.findById(dto.producto_id()).orElseThrow(()-> new EntityNotFoundException("no existe dicho producto"));
+        Venta venta =ventaRepository.findById(dto.venta_id()).orElseThrow(()-> new EntityNotFoundException("No existe la venta a relacionar"));
         DetalleVenta detalleVenta = detalleVentaMapper.dtoToentity(dto, producto, venta);
         return detalleVentaMapper.entityToDto(detalleVentaRepository.save(detalleVenta), ventaMapper.entityToDto(venta), productoMapper.entityToDto(producto));
     }
 
     @Override
     public DetalleVentaResponse actualizar(Long id, DetalleVentaRequest dto) {
-        DetalleVenta detalleVenta = detalleVentaRepository.findById(id).orElseThrow(()-> new RuntimeException("No existe el detalle de venta a actulizar"));
+        DetalleVenta detalleVenta = detalleVentaRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("No existe el detalle de venta a actulizar"));
         Producto producto = detalleVenta.getProducto();
         Venta venta = detalleVenta.getVenta();
         detalleVentaMapper.UpdateDtoToentity(detalleVenta, dto, producto, venta);
@@ -47,7 +48,7 @@ public class DetalleVentaImpl implements DetalleVentaService {
 
     @Override
     public void eliminar(Long id) {
-        DetalleVenta detalleVenta = detalleVentaRepository.findById(id).orElseThrow(()-> new RuntimeException("No existe el detalle de venta a actulizar"));
+        DetalleVenta detalleVenta = detalleVentaRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("No existe el detalle de venta a actulizar"));
         detalleVentaRepository.deleteById(id);
 
     }
@@ -66,7 +67,7 @@ public class DetalleVentaImpl implements DetalleVentaService {
 
     @Override
     public DetalleVentaResponse buscarPorId(Long id) {
-        DetalleVenta detalleVenta = detalleVentaRepository.findById(id).orElseThrow(()-> new RuntimeException("No se encuentra el detalle venta"));
+        DetalleVenta detalleVenta = detalleVentaRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("No se encuentra el detalle venta"));
         return detalleVentaMapper.entityToDto(detalleVenta, ventaMapper.entityToDto(detalleVenta.getVenta()), productoMapper.entityToDto(detalleVenta.getProducto()));
     }
 

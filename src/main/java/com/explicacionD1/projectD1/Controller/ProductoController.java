@@ -8,9 +8,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 @Tag(name="Producto", description = "Endpoints para distintas operaciones de la tabla productos")
 @RestController
 @RequestMapping("/api/producto")
+@Validated
 @RequiredArgsConstructor
 public class ProductoController {
     private final ProductoService productoService;
@@ -30,7 +33,7 @@ public class ProductoController {
             }
     )
     @PostMapping
-    public ResponseEntity<ProductoResponse> crearProducto(@RequestBody ProductoRequest dto) {
+    public ResponseEntity<ProductoResponse> crearProducto(@Valid @RequestBody ProductoRequest dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.guardar(dto));
     }
 
@@ -173,7 +176,7 @@ public class ProductoController {
 
             }
     )
-    public ResponseEntity<ProductoResponse> actualizarProducto( @PathVariable Long id, @RequestBody ProductoRequest dto){
+    public ResponseEntity<ProductoResponse> actualizarProducto( @PathVariable Long id, @Valid @RequestBody ProductoRequest dto){
         return ResponseEntity.ok(productoService.actualizar(id, dto));
     }
 

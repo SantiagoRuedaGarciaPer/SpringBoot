@@ -11,14 +11,17 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Tag(name = "Detalle de Venta", description = "Operaciones relacionadas a los detalles de una venta")
+@Validated
 @RestController
 @RequestMapping("/api/detalleVenta")
 @RequiredArgsConstructor
@@ -33,7 +36,7 @@ public class DetalleVentaCrontroller {
             }
     )
     @PostMapping
-    public ResponseEntity<DetalleVentaResponse> crear(@RequestBody DetalleVentaRequest dto){
+    public ResponseEntity<DetalleVentaResponse> crear(@Valid @RequestBody DetalleVentaRequest dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(detalleVentaService.crear(dto));
     }
 
@@ -118,7 +121,7 @@ public class DetalleVentaCrontroller {
             }
     )
     @PutMapping("/{id}")
-    public ResponseEntity<DetalleVentaResponse> actualizar( @PathVariable Long id, @RequestBody DetalleVentaRequest dto){
+    public ResponseEntity<DetalleVentaResponse> actualizar( @PathVariable Long id, @Valid @RequestBody DetalleVentaRequest dto){
         return ResponseEntity.ok(detalleVentaService.actualizar(id, dto));
     }
 
