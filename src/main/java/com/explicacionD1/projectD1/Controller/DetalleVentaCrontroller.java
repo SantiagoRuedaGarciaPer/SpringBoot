@@ -1,11 +1,8 @@
 package com.explicacionD1.projectD1.Controller;
 
 import com.explicacionD1.projectD1.DTO.Request.DetalleVentaRequest;
-import com.explicacionD1.projectD1.DTO.Request.ProductoRequest;
 import com.explicacionD1.projectD1.DTO.Response.DetalleVentaResponse;
-import com.explicacionD1.projectD1.DTO.Response.ProductoResponse;
 import com.explicacionD1.projectD1.Service.DetalleVentaService;
-import com.explicacionD1.projectD1.Service.ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -135,7 +132,7 @@ public class DetalleVentaCrontroller {
 
             }
     )
-    @DeleteMapping("")
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         detalleVentaService.eliminar(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

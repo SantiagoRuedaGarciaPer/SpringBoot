@@ -3,6 +3,7 @@ package com.explicacionD1.projectD1.Controller;
 import com.explicacionD1.projectD1.DTO.Request.ProductoRequest;
 import com.explicacionD1.projectD1.DTO.Response.ProductoResponse;
 import com.explicacionD1.projectD1.Service.ProductoService;
+import com.explicacionD1.projectD1.execption.BuisnessRuleException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -34,13 +35,16 @@ public class ProductoController {
     )
     @PostMapping
     public ResponseEntity<ProductoResponse> crearProducto(@Valid @RequestBody ProductoRequest dto) {
+        if(dto.precioCompra() > dto.precioVenta()){
+            throw new BuisnessRuleException("El precio de venta no puede ser menor al precio de compra");
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.guardar(dto));
     }
 
     @Operation(summary = "Devuelve lista completa de los productos existentes")
     @ApiResponses(
             value = {
-                    @ApiResponse(responseCode = "200", description = "Productos listados correctamente"),
+                    @ApiResponse(responseCode = "200", description = "Productos listados correctamente")
             }
     )
     @GetMapping

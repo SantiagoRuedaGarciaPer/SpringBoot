@@ -1,10 +1,9 @@
 package com.explicacionD1.projectD1.execption;
 
-import io.micrometer.observation.annotation.ObservationKeyValue;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -57,6 +56,28 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ErrorResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), "Ruta no encontrada o inclompleta",
                         "ERROR NO HANDLER FOUND")
+        );
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleParsingErrors(HttpMessageNotReadableException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorResponse(LocalDateTime.now(),
+                        HttpStatus.BAD_REQUEST.value(),
+                        "El cuerpo de la solicitud no es valido",
+                        "BAD REQUEST")
+        );
+    }
+
+    @ExceptionHandler(BuisnessRuleException.class)
+    public ResponseEntity<ErrorResponse> handleBuisnessException(BuisnessRuleException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorResponse(
+                        LocalDateTime.now(),
+                        HttpStatus.BAD_REQUEST.value(),
+                        ex.getMessage(),
+                        "BUISSNESS RULE VIOLATION"
+                )
         );
     }
 }
